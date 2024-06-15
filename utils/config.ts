@@ -1,4 +1,4 @@
-import { createConfig, http } from "wagmi";
+import { createConfig, http, cookieStorage, createStorage } from "wagmi";
 import { fraxtal, fraxtalTestnet } from "wagmi/chains";
 import { injected, metaMask } from "wagmi/connectors";
 
@@ -15,4 +15,8 @@ export const config = createConfig({
     [fraxtal.id]: http(),
     [fraxtalTestnet.id]: http(),
   },
+  ssr: true,
+  storage: createStorage({
+    storage: cookieStorage,
+  }),
 });

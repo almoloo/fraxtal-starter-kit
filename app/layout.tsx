@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Provider from "@/app/provider";
-import ConnectButton from "@/components/ConnectButton";
 import Link from "next/link";
+import AccountButton from "@/components/AccountButton";
+import { headers } from "next/headers";
+import { cookieToInitialState } from "wagmi";
+import { config } from "@/utils/config";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,13 +20,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialState = cookieToInitialState(config, headers().get("cookie"));
   return (
-    <Provider>
+    <Provider initialState={initialState}>
       <html lang="en">
         <body className={inter.className}>
           <header className="flex items-center justify-between">
             header
-            <ConnectButton />
+            <AccountButton />
           </header>
           <nav className="flex flex-col">
             <Link href="/">Welcome</Link>
