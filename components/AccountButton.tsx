@@ -17,7 +17,7 @@ const handleDisconnect = async (connector?: Connector) => {
   }
 };
 
-const ConnectButton = () => {
+const AccountButton = () => {
   const {
     isConnected,
     isDisconnected,
@@ -55,4 +55,4 @@ const ConnectButton = () => {
   );
 };
 
-export default ConnectButton;
+export default AccountButton;
