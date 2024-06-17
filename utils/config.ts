@@ -10,7 +10,15 @@ declare module "wagmi" {
 
 export const config = createConfig({
   chains: [fraxtal, fraxtalTestnet],
-  connectors: [injected(), metaMask()],
+  connectors: [
+    injected(),
+    metaMask({
+      dappMetadata: {
+        name: "Fraxtal Starter Kit",
+        url: "http://localhost:3000",
+      },
+    }),
+  ],
   transports: {
     [fraxtal.id]: http(),
     [fraxtalTestnet.id]: http(),

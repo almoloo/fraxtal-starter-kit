@@ -42,3 +42,17 @@ export const networkConfigs: Record<networkType, NetworkConfig> = {
 export const isTestnet = () => {
   return process.env.NEXT_PUBLIC_VITE_TESTNET === "1";
 };
+
+/**
+ * Retrieves the Pinata settings from environment variables.
+ * @returns An object containing the Pinata gateway and JWT.
+ */
+export const getPinataSettings = () => {
+  const gateway = process.env.NEXT_PUBLIC_PINATA_GATEWAY;
+  const jwt = process.env.NEXT_PUBLIC_PINATA_JWT;
+
+  return {
+    gateway,
+    jwt,
+  };
+};
