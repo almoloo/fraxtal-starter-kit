@@ -1,21 +1,8 @@
 "use client";
 
-import { useAccount, Connector } from "wagmi";
+import { useAccount, type Connector } from "wagmi";
 import ConnectModal from "./ConnectModal";
 import { useState } from "react";
-
-// ----- HANDLE DISCONNECT BUTTON
-const handleDisconnect = async (connector?: Connector) => {
-  if (!connector) {
-    console.error("No connector provided");
-    return;
-  }
-  try {
-    await connector.disconnect();
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 const AccountButton = () => {
   const {
@@ -28,14 +15,25 @@ const AccountButton = () => {
 
   const [showModal, setShowModal] = useState(false);
 
+  // ----- HANDLE DISCONNECT BUTTON
+  const handleDisconnect = async () => {
+    if (!connector) {
+      console.error("No connector provided");
+      return;
+    }
+    try {
+      await connector.disconnect();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       {/* ----- DISCONNECT BUTTON ----- */}
       {isConnected && (
         <>
-          <button onClick={() => handleDisconnect(connector)}>
-            disconnect
-          </button>
+          <button onClick={() => handleDisconnect()}>disconnect</button>
         </>
       )}
       {/* ----- CONNECT BUTTON ----- */}

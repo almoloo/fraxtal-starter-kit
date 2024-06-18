@@ -8,12 +8,11 @@ const queryClient = new QueryClient();
 
 type Props = {
   children: React.ReactNode;
-  initialState: State | undefined;
 };
 
-const Provider = ({ children, initialState }: Props) => {
+const Provider = ({ children }: Props) => {
   return (
-    <WagmiProvider config={config} initialState={initialState}>
+    <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
   );
