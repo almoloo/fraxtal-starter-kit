@@ -1,5 +1,5 @@
 import PinataClient from "@pinata/sdk";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 export const dynamic = "force-dynamic";
 
@@ -14,12 +14,12 @@ const pinata = new PinataClient({
  * @param {FormData.json} json - FormData object containing the JSON data to be pinned.
  * @returns A promise that resolves to the response object.
  */
-export async function POST(request: Request): Promise<NextResponse> {
-  const formData = await request.formData();
-  const json = formData.get("json");
-  const file = formData.get("file") as File;
-
+export async function POST(request: NextRequest): Promise<NextResponse> {
+  console.log("🎈 here");
   try {
+    const formData = await request.formData();
+    const json = formData.get("json") ?? null;
+    const file = (formData.get("file") as File) ?? null;
     if (json) {
       const pinnedData = await pinata.pinJSONToIPFS(
         JSON.parse(json.toString()),
