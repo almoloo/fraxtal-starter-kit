@@ -1,11 +1,5 @@
 import { getPinataSettings } from "@/utils/network-configs";
 import { NextResponse } from "next/server";
-// import PinataClient from "@pinata/sdk";
-
-// const pinata = new PinataClient({
-//   pinataApiKey: process.env.PINATA_API_KEY,
-//   pinataSecretApiKey: process.env.PINATA_API_SECRET,
-// });
 
 export const dynamic = "force-dynamic";
 
