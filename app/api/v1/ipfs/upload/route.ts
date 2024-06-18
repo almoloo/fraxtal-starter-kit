@@ -13,7 +13,7 @@ const pinata = new PinataClient({
  * @param {FormData.json} json - FormData object containing the JSON data to be pinned.
  * @returns A promise that resolves to the response object.
  */
-export async function POST(request: Request): Promise<Response> {
+export async function POST(request: Request): Promise<NextResponse> {
   const formData = await request.formData();
   const json = formData.get("json");
   const file = formData.get("file");
@@ -21,12 +21,21 @@ export async function POST(request: Request): Promise<Response> {
   try {
     if (json) {
       const pinnedData = await pinata.pinJSONToIPFS(
-        JSON.parse(json.toString())
+        JSON.parse(json.toString()),
+        {
+          pinataMetadata: {
+            name: "json",
+          },
+        }
       );
       console.log(pinnedData);
       return NextResponse.json(pinnedData, { status: 200 });
     } else if (file) {
-      const pinnedData = await pinata.pinFileToIPFS(file as File);
+      const pinnedData = await pinata.pinFileToIPFS(file as File, {
+        pinataMetadata: {
+          name: "file",
+        },
+      });
       console.log(pinnedData);
       return NextResponse.json(pinnedData, { status: 200 });
     } else {
