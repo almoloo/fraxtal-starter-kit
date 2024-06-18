@@ -1,5 +1,6 @@
 import PinataClient from "@pinata/sdk";
 import { NextResponse } from "next/server";
+import fs from "fs";
 export const dynamic = "force-dynamic";
 
 const pinata = new PinataClient({
@@ -16,7 +17,7 @@ const pinata = new PinataClient({
 export async function POST(request: Request): Promise<NextResponse> {
   const formData = await request.formData();
   const json = formData.get("json");
-  const file = formData.get("file");
+  const file = formData.get("file") as File;
 
   try {
     if (json) {
@@ -31,13 +32,32 @@ export async function POST(request: Request): Promise<NextResponse> {
       console.log(pinnedData);
       return NextResponse.json(pinnedData, { status: 200 });
     } else if (file) {
-      const pinnedData = await pinata.pinFileToIPFS(file as File, {
-        pinataMetadata: {
-          name: "file",
-        },
-      });
-      console.log(pinnedData);
-      return NextResponse.json(pinnedData, { status: 200 });
+      // const pinnedData = await pinata.pinFileToIPFS(readableStream, {
+      //   pinataMetadata: {
+      //     name: "file",
+      //   },
+      // });
+      // console.log(pinnedData);
+      // return NextResponse.json(pinnedData, { status: 200 });
+      const form = new FormData();
+      form.append("file", file);
+      form.append("pinataMetadata", JSON.stringify({ name: "file" }));
+      form.append("pinataOptions", JSON.stringify({ cidVersion: 0 }));
+
+      const res = await fetch(
+        `https://api.pinata.cloud/pinning/pinFileToIPFS`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
+            // "Content-Type": "multipart/form-data",
+          },
+          body: form,
+        }
+      );
+      const jsonRes = await res.json();
+      console.log(jsonRes);
+      return NextResponse.json(jsonRes, { status: 200 });
     } else {
       return NextResponse.json(
         { message: "No data provided." },
@@ -45,6 +65,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       );
     }
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { message: "Failed to pin data to IPFS." },
       { status: 500 }
