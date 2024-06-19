@@ -33,7 +33,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     returnError("Failed to fetch account balance.", 500);
 
   const balanceInWei = jsonRes.result;
-  const balanceInEth = Number(balanceInWei) / 1e18;
+  const balanceInEth = (Number(balanceInWei) / 1e18).toString();
 
   return NextResponse.json({ wei: balanceInWei, eth: balanceInEth });
 }
