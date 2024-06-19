@@ -56,3 +56,19 @@ export const getPinataSettings = () => {
     jwt,
   };
 };
+
+/**
+ * Retrieves the explorer settings based on the current environment.
+ * @returns An object containing the API key and base URL for the explorer.
+ */
+export const getExplorerSettings = () => {
+  const apiKey = process.env.FRAXSCAN_API_KEY;
+  const baseUrl = isTestnet()
+    ? process.env.FRAXSCAN_TESTNET_ENDPOINT
+    : process.env.FRAXSCAN_MAINNET_ENDPOINT;
+
+  return {
+    apiKey,
+    baseUrl,
+  };
+};
