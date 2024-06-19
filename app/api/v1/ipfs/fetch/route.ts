@@ -1,10 +1,10 @@
 import { getPinataSettings } from "@/utils/network-configs";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(request: Request): Promise<NextResponse> {
-  const { searchParams } = new URL(request.url);
+export async function GET(request: NextRequest): Promise<NextResponse> {
+  const searchParams = request.nextUrl.searchParams;
   const hash = searchParams.get("hash");
   const gatewayUrl = getPinataSettings().gateway;
 
