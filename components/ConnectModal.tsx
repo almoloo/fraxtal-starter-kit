@@ -7,11 +7,7 @@ const ConnectModal = () => {
 
   const handleConnect = async (connector: Connector) => {
     try {
-      const network =
-        (isTestnet()
-          ? chains.find((chain) => chain.testnet)
-          : chains.find((chain) => !chain.testnet)) ?? chains[0];
-      await connectAsync({ connector, chainId: network.id });
+      await connectAsync({ connector, chainId: chains[0].id });
     } catch (error) {
       console.error(error);
     }

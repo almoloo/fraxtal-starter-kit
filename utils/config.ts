@@ -1,6 +1,7 @@
 import { createConfig, http } from "wagmi";
 import { fraxtal, fraxtalTestnet } from "wagmi/chains";
 import { injected, metaMask } from "wagmi/connectors";
+import { isTestnet } from "./network-configs";
 
 declare module "wagmi" {
   interface Register {
@@ -9,7 +10,7 @@ declare module "wagmi" {
 }
 
 export const config = createConfig({
-  chains: [fraxtal, fraxtalTestnet],
+  chains: isTestnet() ? [fraxtalTestnet] : [fraxtal],
   connectors: [
     injected(),
     metaMask({
