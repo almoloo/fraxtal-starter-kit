@@ -20,13 +20,12 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     `${baseUrl}?module=transaction&action=getstatus&txhash=${txHash}&tag=latest&apikey=${apiKey}`
   );
 
-  if (!res.ok)
-    returnError("Failed to fetch transaction execution status.", 500);
+  if (!res.ok) returnError("Failed to fetch contract execution status.", 500);
 
   const jsonRes = await res.json();
 
   if (jsonRes.status === "0" || jsonRes.isError !== undefined)
-    returnError("Failed to fetch transaction execution status.", 500);
+    returnError("Failed to fetch contract execution status.", 500);
 
   return NextResponse.json(jsonRes.result);
 }
