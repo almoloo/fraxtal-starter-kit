@@ -72,3 +72,70 @@ export const getExplorerSettings = () => {
     baseUrl,
   };
 };
+
+export const getSmartContractSettings = () => {
+  if (
+    isTestnet() &&
+    process.env.NEXT_PUBLIC_VITE_TESTNET_SMART_CONTRACT_ADDRESS === undefined
+  ) {
+    throw new Error("Testnet smart contract address is not defined.");
+  }
+  if (
+    !isTestnet() &&
+    process.env.NEXT_PUBLIC_VITE_MAINNET_SMART_CONTRACT_ADDRESS === undefined
+  ) {
+    throw new Error("Mainnet smart contract address is not defined.");
+  }
+
+  const testnetSmartContractAddress =
+    process.env.NEXT_PUBLIC_VITE_TESTNET_SMART_CONTRACT_ADDRESS!;
+  const mainnetSmartContractAddress =
+    process.env.NEXT_PUBLIC_VITE_MAINNET_SMART_CONTRACT_ADDRESS!;
+
+  return {
+    address: isTestnet()
+      ? testnetSmartContractAddress
+      : mainnetSmartContractAddress,
+    abi: [
+      {
+        inputs: [],
+        name: "getName",
+        outputs: [
+          {
+            internalType: "string",
+            name: "",
+            type: "string",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "name",
+        outputs: [
+          {
+            internalType: "string",
+            name: "",
+            type: "string",
+          },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [
+          {
+            internalType: "string",
+            name: "newName",
+            type: "string",
+          },
+        ],
+        name: "setName",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+    ],
+  };
+};
