@@ -1,6 +1,6 @@
 import { createConfig, http } from "wagmi";
 import { fraxtal, fraxtalTestnet } from "wagmi/chains";
-import { injected, metaMask } from "wagmi/connectors";
+// import { injected, metaMask } from "wagmi/connectors";
 import { isTestnet } from "./network-configs";
 
 declare module "wagmi" {
@@ -12,13 +12,13 @@ declare module "wagmi" {
 export const config = createConfig({
   chains: isTestnet() ? [fraxtalTestnet] : [fraxtal],
   connectors: [
-    injected(),
-    metaMask({
-      dappMetadata: {
-        name: "Fraxtal Starter Kit",
-        url: "http://localhost:3000",
-      },
-    }),
+    // injected(),
+    // metaMask({
+    //   dappMetadata: {
+    //     name: "Fraxtal Starter Kit",
+    //     url: "http://localhost:3000",
+    //   },
+    // }),
   ],
   transports: {
     [fraxtal.id]: http(),
