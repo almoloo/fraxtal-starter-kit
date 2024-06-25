@@ -3,7 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Provider from "@/app/provider";
 import Link from "next/link";
-import AccountButton from "@/components/AccountButton";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +21,8 @@ export default function RootLayout({
   return (
     <Provider>
       <html lang="en">
-        <body className={inter.className}>
-          <header className="flex items-center justify-between">
-            header
-            <AccountButton />
-          </header>
+        <body className={`${inter.className} antialiased`}>
+          <Header />
           <nav className="flex flex-col">
             <Link href="/">Welcome</Link>
             <Link href="/smart-contract/call">
@@ -40,7 +38,7 @@ export default function RootLayout({
             <Link href="/asset/transfer">Transfer an asset</Link>
           </nav>
           <main>{children}</main>
-          <footer>footer</footer>
+          <Footer />
         </body>
       </html>
     </Provider>
