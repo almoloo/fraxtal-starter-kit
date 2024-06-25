@@ -3,6 +3,8 @@
 import { useAccount, type Connector } from "wagmi";
 import ConnectModal from "./ConnectModal";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { LoaderIcon } from "lucide-react";
 
 const AccountButton = () => {
   const {
@@ -37,15 +39,25 @@ const AccountButton = () => {
         </>
       )}
       {/* ----- CONNECT BUTTON ----- */}
-      {isDisconnected && (
+      {(isDisconnected || isConnecting || isReconnecting) && (
         <>
-          <button onClick={() => setShowModal(!showModal)}>connect</button>
-        </>
-      )}
-      {/* ----- CONNECTING ----- */}
-      {(isConnecting || isReconnecting) && (
-        <>
-          <span>connecting...</span>
+          <Button
+            className="relative"
+            disabled={isConnecting || isReconnecting}
+            onClick={() => setShowModal(true)}
+          >
+            <span
+              className={`${(isConnecting || isReconnecting) && "opacity-0"}`}
+            >
+              Connect Wallet
+            </span>
+            {(isConnecting || isReconnecting) && (
+              <div className="absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center">
+                <LoaderIcon className="h-6 w-6 animate-spin" />
+              </div>
+            )}
+          </Button>
+          {/* <button onClick={() => setShowModal(!showModal)}>connect</button> */}
         </>
       )}
       {showModal && <ConnectModal />}
