@@ -21,23 +21,11 @@ export default function RootLayout({
   return (
     <Provider>
       <html lang="en">
-        <body className={`${inter.className} antialiased`}>
+        <body
+          className={`${inter.className} antialiased min-h-screen flex flex-col`}
+        >
           <Header />
-          <nav className="flex flex-col">
-            <Link href="/">Welcome</Link>
-            <Link href="/smart-contract/call">
-              Call a Smart Contract method
-            </Link>
-            <Link href="/smart-contract/fetch">
-              Fetch data from a Smart Contract
-            </Link>
-            <Link href="/ipfs/fetch">Fetch data/file from IPFS</Link>
-            <Link href="/ipfs/upload">Upload data/file to IPFS</Link>
-            <Link href="/explorer">Fetch data from the explorer</Link>
-            <Link href="/asset/mint">Mint an asset</Link>
-            <Link href="/asset/transfer">Transfer an asset</Link>
-          </nav>
-          <main>{children}</main>
+          <main className="flex grow flex-col">{children}</main>
           <Footer />
         </body>
       </html>

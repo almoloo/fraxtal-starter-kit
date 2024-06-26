@@ -2,6 +2,7 @@ import { createConfig, http } from "wagmi";
 import { fraxtal, fraxtalTestnet } from "wagmi/chains";
 // import { injected, metaMask } from "wagmi/connectors";
 import { isTestnet } from "./network-configs";
+import { createPublicClient } from "viem";
 
 declare module "wagmi" {
   interface Register {
