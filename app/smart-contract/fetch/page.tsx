@@ -34,17 +34,6 @@ const page = () => {
 				error={error}
 				isPending={isPending}
 			/>
-
-			<div>
-				<h3 className="text-lg font-bold mb-3">How it Works:</h3>
-				<p>
-					The data you see is a direct reflection of the state of our
-					smart contract on the blockchain. It's updated in real-time,
-					providing a transparent and immutable record of transactions
-					and interactions. This level of transparency is crucial for
-					trust and verification in decentralized systems.
-				</p>
-			</div>
 		</div>
 	);
 };

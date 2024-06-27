@@ -73,7 +73,7 @@ const page = () => {
 
 			<form
 				onSubmit={handleSubmit}
-				className="border rounded p-5 flex flex-col gap-5"
+				className="border rounded p-5 flex flex-col gap-5 mb-5"
 			>
 				<h2 className="font-medium">
 					Interact with the Smart Contract
