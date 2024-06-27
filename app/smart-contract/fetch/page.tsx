@@ -4,20 +4,16 @@ import { getSmartContractSettings } from '@/utils/network-configs';
 import { BracesIcon, LoaderIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useReadContract } from 'wagmi';
+import FetchResult from '@/app/smart-contract/components/FetchResult';
 
 const page = () => {
 	const smartContractSettings = getSmartContractSettings();
-	const [fetchedName, setFetchedName] = useState<string>('');
 
 	const { data, error, isPending } = useReadContract({
 		abi: smartContractSettings.abi,
 		address: smartContractSettings.address as `0x${string}`,
 		functionName: 'getName',
 	});
-
-	useEffect(() => {
-		setFetchedName(data as string);
-	}, [data]);
 
 	return (
 		<div>
@@ -32,38 +28,21 @@ const page = () => {
 					Below is the current data fetched from our smart contract:
 				</p>
 			</header>
-			<div
-				className={`alert mb-5 ${
-					!isPending && !error ? 'green' : 'gray'
-				} ${error && 'red'}`}
-			>
-				<h2 className="font-medium mb-1">Contract Data:</h2>
-				{error ? (
-					<>
-						<p>Failed to fetch data from the smart contract.</p>
-						<pre className="mt-3 bg-rose-100/50 p-5">
-							{error.message}
-						</pre>
-					</>
-				) : (
-					<div className="flex items-center gap-3">
-						<span className="font-light">Name: </span>
-						{isPending ? (
-							<LoaderIcon className="animate-spin h-4 w-4" />
-						) : (
-							<strong>{fetchedName}</strong>
-						)}
-					</div>
-				)}
-			</div>
+
+			<FetchResult
+				data={data}
+				error={error}
+				isPending={isPending}
+			/>
+
 			<div>
 				<h3 className="text-lg font-bold mb-3">How it Works:</h3>
 				<p>
-					The data displayed is retrieved in real-time from a smart
-					contract deployed on the blockchain. When you access this
-					page, a read-only transaction is executed to fetch the
-					latest state of the data stored in the smart contract. This
-					process ensures that the data you see is always up to date.
+					The data you see is a direct reflection of the state of our
+					smart contract on the blockchain. It's updated in real-time,
+					providing a transparent and immutable record of transactions
+					and interactions. This level of transparency is crucial for
+					trust and verification in decentralized systems.
 				</p>
 			</div>
 		</div>
