@@ -99,7 +99,7 @@ const page = () => {
 				{hash && (
 					<section className="alert green">
 						<h3 className="font-bold mb-1">Transaction Hash:</h3>
-						<pre className="text-sm">
+						<pre className="text-sm whitespace-break-spaces break-words">
 							<Button
 								variant="link"
 								asChild
