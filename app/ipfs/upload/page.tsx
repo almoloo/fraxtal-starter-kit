@@ -17,8 +17,17 @@ const page = () => {
 
 	const handleDataSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		setResponse(null);
+		setError(null);
 		try {
 			setLoading(true);
+			// CHECK IF DATA IS VALID JSON
+			try {
+				JSON.parse(data);
+			} catch (e) {
+				setError('Invalid JSON data');
+				return;
+			}
 			const form = new FormData();
 			form.append('json', data);
 
@@ -38,6 +47,8 @@ const page = () => {
 
 	const handleFileSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		setFileResponse(null);
+		setFileError(null);
 		try {
 			setLoading(true);
 			const form = new FormData();
