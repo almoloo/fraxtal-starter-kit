@@ -68,7 +68,7 @@ const TxList = () => {
 			)}
 			{error && (
 				<section className="alert red">
-					<p>Failed to fetch frxETH balance:</p>
+					<p>Failed to fetch transactions:</p>
 					<pre className="mt-3 bg-rose-100/50 p-5 whitespace-break-spaces break-words">
 						{error.toString()}
 					</pre>
