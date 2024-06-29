@@ -74,21 +74,6 @@ export const getExplorerSettings = () => {
 };
 
 export const getSmartContractSettings = () => {
-	if (
-		isTestnet() &&
-		process.env.NEXT_PUBLIC_VITE_TESTNET_SMART_CONTRACT_ADDRESS ===
-			undefined
-	) {
-		throw new Error('Testnet smart contract address is not defined.');
-	}
-	if (
-		!isTestnet() &&
-		process.env.NEXT_PUBLIC_VITE_MAINNET_SMART_CONTRACT_ADDRESS ===
-			undefined
-	) {
-		throw new Error('Mainnet smart contract address is not defined.');
-	}
-
 	const testnetSmartContractAddress =
 		process.env.NEXT_PUBLIC_VITE_TESTNET_SMART_CONTRACT_ADDRESS!;
 	const mainnetSmartContractAddress =
