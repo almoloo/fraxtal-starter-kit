@@ -21,9 +21,9 @@ const EthBalance = () => {
 
 		try {
 			const balance = await getFrxEthBalance([address]);
+			if (balance.eth === 'NaN') throw new Error('Invalid address');
 			setResponse(balance);
 		} catch (error: unknown) {
-			console.error('Failed to fetch frxETH balance:', error);
 			setError(error as string);
 		} finally {
 			setLoading(false);
@@ -40,7 +40,7 @@ const EthBalance = () => {
 			<section className="flex gap-3">
 				<Input
 					type="text"
-					placeholder="address/addresses"
+					placeholder="address"
 					defaultValue={address}
 					onChange={(e) => setAddress(e.target.value)}
 					disabled={loading}
