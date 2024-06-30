@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 const { program } = require('commander');
 const { exec } = require('shelljs');
-const inquirer = require('inquirer');
 
 program
 	.name('create-frax-app')
@@ -14,7 +13,7 @@ program
 		console.log(`Project ${projectName} created!`);
 
 		console.log(`Installing dependencies...`);
-		exec(`cd ${projectName} && npm install`);
+		exec(`cd ${projectName} && npm install`, { silent: true });
 		console.log(`Dependencies installed!`);
 
 		console.log('Setting up environment variables...');
@@ -57,9 +56,10 @@ program
 
 		console.log(`
         🎉 Project created successfully!
+        ‼⚠️ Make sure to replace the placeholders in the .env files with your own values.
         🏁 To start the project, run the following commands:
         cd ${projectName}
-        npm start
+        npm run dev
         `);
 	});
 
