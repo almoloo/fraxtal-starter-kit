@@ -13,7 +13,7 @@ program
 		console.log(`Project ${projectName} created!`);
 
 		console.log(`Installing dependencies...`);
-		exec(`cd ${projectName} && npm install`, { silent: true });
+		// exec(`cd ${projectName} && npm install`, { silent: true });
 		console.log(`Dependencies installed!`);
 
 		console.log('Setting up environment variables...');
@@ -59,6 +59,7 @@ program
         ‼⚠️ Make sure to replace the placeholders in the .env files with your own values.
         🏁 To start the project, run the following commands:
         cd ${projectName}
+        npm install
         npm run dev
         `);
 	});
